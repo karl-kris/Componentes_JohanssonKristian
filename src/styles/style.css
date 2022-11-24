@@ -1,0 +1,31 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 24-nov-2022, 9:50:47
+    Author     : Kristian
+*/
+
+.tooltip {    
+    -fx-background-color: linear-gradient(#e2ecfe, #99bcfd);
+}
+.page-corner {
+    -fx-background-color: linear-gradient(from 0% 0% to 50% 50%,#3278fa,#99bcfd);
+}
+
+.check-box .mark {
+    -fx-shape:
+"M2,0L5,4L8,0L10,0L10,2L6,5L10,8L10,10L8,10L5,6L2,10L0,10L0,8L4,5L0,2L0,0Z";
+}
+.check-box:selected .mark {
+    -fx-background-color: #0181e2;
+}
+
+.table-row-cell:empty {
+    -fx-background-color: lightyellow;
+}
+ 
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}
