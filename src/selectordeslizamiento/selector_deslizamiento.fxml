@@ -15,7 +15,7 @@
                         mnemonicParsing="false" prefWidth="25.0" text="&lt;" />
                 <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER"
                        prefWidth="500.0" text="Label" />
-                <Button fx:id="nextButton" minWidth="25.0" nemonicParsing="false"
+                <Button fx:id="nextButton" minWidth="25.0"
                         prefWidth="25.0" text="&gt;" />
             </children>
         </HBox>

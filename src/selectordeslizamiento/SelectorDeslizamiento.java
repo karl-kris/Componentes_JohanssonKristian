@@ -18,7 +18,7 @@ import javafx.scene.layout.AnchorPane;
 
 /**
  *
- * @author
+ * @author Kristian
  */
 public class SelectorDeslizamiento extends AnchorPane {
 
