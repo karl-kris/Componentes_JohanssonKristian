@@ -5,12 +5,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="campotextoboton.CampoTextoBoton">
+<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" >
     <TextField fx:id="textField">
       <VBox.margin>
          <Insets bottom="10.0" />
       </VBox.margin></TextField>
-    <Button onAction="#doSomething" text="Click Me" />
+    <Button text="Click Me!" fx:id="boton"/>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
