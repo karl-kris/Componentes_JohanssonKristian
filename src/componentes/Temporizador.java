@@ -37,6 +37,7 @@ public class Temporizador extends HBox implements Initializable {
     private Label medida;
     
     private Timeline timeline;
+    private int ciclos = 0;
     private ObjectProperty<EventHandler<ActionEvent>> OnAction = new SimpleObjectProperty<EventHandler<ActionEvent>>();
     
     /**
@@ -44,21 +45,6 @@ public class Temporizador extends HBox implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
-                @Override
-                public void handle(ActionEvent arg0) {
-                    countDown();
-                    
-                }
-        }));
-        timeline.setCycleCount(3);
-        timeline.setOnFinished(new EventHandler<ActionEvent>(){
-                @Override
-                    public void handle(ActionEvent event) {
-                        onActionProperty().get().handle(event);
-                    }
-            });
-        timeline.play();
         
     } 
     
@@ -76,9 +62,27 @@ public class Temporizador extends HBox implements Initializable {
         }
     }
     
-    public void calculaCycleCount(int horas, int minutos, int segundos){
+    public void startTimeline(){
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
+                @Override
+                public void handle(ActionEvent arg0) {
+                    countDown();
+                    
+                }
+        }));
+        timeline.setCycleCount(ciclos);
+        timeline.setOnFinished(new EventHandler<ActionEvent>(){
+                @Override
+                    public void handle(ActionEvent event) {
+                        onActionProperty().get().handle(event);
+                    }
+            });
+        timeline.play();
+    }
+    
+    public void calculaCycleCount(){
         
-        timeline.setCycleCount(horas * 3600 + minutos * 60 + segundos);
+        ciclos =  (Integer.parseInt(tiempo.getText().substring(6))) + (Integer.parseInt(tiempo.getText().substring(3,5))*60) + (Integer.parseInt(tiempo.getText().substring(0,2))*3600);
     }
     
     public void setEtiqueta(String valor){
