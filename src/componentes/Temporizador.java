@@ -9,12 +9,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
@@ -33,6 +37,7 @@ public class Temporizador extends HBox implements Initializable {
     private Label medida;
     
     private Timeline timeline;
+    private ObjectProperty<EventHandler<ActionEvent>> OnAction = new SimpleObjectProperty<EventHandler<ActionEvent>>();
     
     /**
      * Initializes the controller class.
@@ -46,10 +51,13 @@ public class Temporizador extends HBox implements Initializable {
                     
                 }
         }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.setOnFinished((e) -> {
-            
-            System.out.println("He acabado");});
+        timeline.setCycleCount(3);
+        timeline.setOnFinished(new EventHandler<ActionEvent>(){
+                @Override
+                    public void handle(ActionEvent event) {
+                        onActionProperty().get().handle(event);
+                    }
+            });
         timeline.play();
         
     } 
@@ -68,8 +76,9 @@ public class Temporizador extends HBox implements Initializable {
         }
     }
     
-    public int calculaCycleCount(int horas, int minutos, int segundos){
-        return horas * 3600 + minutos * 60 + segundos;
+    public void calculaCycleCount(int horas, int minutos, int segundos){
+        
+        timeline.setCycleCount(horas * 3600 + minutos * 60 + segundos);
     }
     
     public void setEtiqueta(String valor){
@@ -85,6 +94,7 @@ public class Temporizador extends HBox implements Initializable {
     
     
     public void setTiempo(int horas, int minutos, int segundos){
+        
         
         while(segundos > 59){
             segundos -= 60;
@@ -114,7 +124,7 @@ public class Temporizador extends HBox implements Initializable {
         
         }
         else{
-            this.tiempo.setText("No válido");
+            this.tiempo.setText("No válido\n>99 horas");
         }
         
     }
@@ -139,9 +149,6 @@ public class Temporizador extends HBox implements Initializable {
         
         horas = Integer.parseInt(tiempo.getText().substring(0,2));
         
-        if(secs == 0 && horas == 0 && mins == 0){
-            timeline.stop();
-        }
         
         if(secs == 59){
             if(mins == 0)
@@ -160,4 +167,19 @@ public class Temporizador extends HBox implements Initializable {
         
     }
     
+    public void alertaEstandar(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(etiqueta.getText() + " ha acabado");
+        alert.show();
+    }
+    
+    public final ObjectProperty<EventHandler<ActionEvent>> onActionProperty() {
+    return OnAction;
+    }
+    public final void setOnFinished(EventHandler<ActionEvent> handler) {
+        OnAction.set(handler);
+    }
+    public final EventHandler<ActionEvent> getOnFinished() {
+        return OnAction.get();
+    }
 }
