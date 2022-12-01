@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package temporizador;
+package componentes;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,12 +41,15 @@ public class Temporizador extends HBox implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
                 @Override
-                public void handle(ActionEvent arg0) {	
+                public void handle(ActionEvent arg0) {
                     countDown();
+                    
                 }
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
-        
+        timeline.setOnFinished((e) -> {
+            
+            System.out.println("He acabado");});
         timeline.play();
         
     } 
@@ -65,9 +68,21 @@ public class Temporizador extends HBox implements Initializable {
         }
     }
     
+    public int calculaCycleCount(int horas, int minutos, int segundos){
+        return horas * 3600 + minutos * 60 + segundos;
+    }
+    
     public void setEtiqueta(String valor){
         this.etiqueta.setText(valor);
     }
+    
+    public void setColoresYBorde(String color1, String color2, int radio){
+        String rad = Integer.toString(radio);
+        etiqueta.setStyle(("-fx-background-radius: " + rad + "px "+ "0px 0px " + rad + "px;")+ color1);
+        medida.setStyle(("-fx-background-radius: "+ "0px " + rad + "px "+  rad + "px"+ "0px;")+color1);
+        tiempo.setStyle(color2);
+    }
+    
     
     public void setTiempo(int horas, int minutos, int segundos){
         
@@ -105,7 +120,7 @@ public class Temporizador extends HBox implements Initializable {
     }
     
     public void setMedida(String valor){
-        this.etiqueta.setText(valor);
+        this.medida.setText(valor);
     }
     
     public void countDown(){
@@ -124,8 +139,9 @@ public class Temporizador extends HBox implements Initializable {
         
         horas = Integer.parseInt(tiempo.getText().substring(0,2));
         
-        if(secs == 0 && mins == 0 && horas == 0)
+        if(secs == 0 && horas == 0 && mins == 0){
             timeline.stop();
+        }
         
         if(secs == 59){
             if(mins == 0)
@@ -141,6 +157,7 @@ public class Temporizador extends HBox implements Initializable {
         
         
         setTiempo(horas, mins, secs);
+        
     }
     
 }
