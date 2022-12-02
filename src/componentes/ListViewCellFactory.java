@@ -9,16 +9,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
- *
- * @author Kristian
+ *Contenido de la clase ListViewCellFactory.
+ * @author Kristian Johansson Dougal
  */
 public class ListViewCellFactory  extends ListCell<String> {
     
-    
+    /**
+     * Constructor por defecto.
+     */
     public ListViewCellFactory(){
         super();
     }
-    
+    /**
+     * Método que actualiza el valor de la celda.
+     * @param item - Ítem con el que se va a actualizar la celda
+     * @param empty - Booleano que comprueba si está vacía la celda.
+     */
     @Override 
     public void updateItem(String item, boolean empty) {
         super.updateItem(item, empty);

@@ -23,9 +23,11 @@ import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
 /**
- * FXML Controller class
+ * 
+ * 
+ * Contenido de la clase FXML Temporizador.
  *
- * @author usuario
+ * @author Kristian Johansson Dougal
  */
 public class Temporizador extends HBox implements Initializable {
 
@@ -41,13 +43,16 @@ public class Temporizador extends HBox implements Initializable {
     private ObjectProperty<EventHandler<ActionEvent>> OnAction = new SimpleObjectProperty<EventHandler<ActionEvent>>();
     
     /**
-     * Initializes the controller class.
+     * Inicializa la clase controladora.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
     } 
     
+    /**
+     * Constructor de Temporizador sin argumentos.
+     */
     public Temporizador() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
 "temporizador.fxml"));
@@ -62,6 +67,9 @@ public class Temporizador extends HBox implements Initializable {
         }
     }
     
+    /**
+     * Método de comienzo del contador.
+     */
     public void startTimeline(){
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
                 @Override
@@ -80,14 +88,29 @@ public class Temporizador extends HBox implements Initializable {
         timeline.play();
     }
     
+    /**
+     * Cálculo del número de ciclos del Timeline
+     */
     public void calculaCycleCount(){
         
         ciclos =  (Integer.parseInt(tiempo.getText().substring(6))) + (Integer.parseInt(tiempo.getText().substring(3,5))*60) + (Integer.parseInt(tiempo.getText().substring(0,2))*3600);
     }
     
+    /**
+     * Método setter del atributo Etiqueta
+     * @param valor - Valor del texto
+     */
+    
     public void setEtiqueta(String valor){
         this.etiqueta.setText(valor);
     }
+    
+    /**
+     * Método para asignarle colores y un radio del borde predeterminado.
+     * @param color1 - Color de etiquetas exteriores.
+     * @param color2 - Color de etiqueta del Temporizador
+     * @param radio - Radio del Background de las esquinas
+     */
     
     public void setColoresYBorde(String color1, String color2, int radio){
         String rad = Integer.toString(radio);
@@ -96,7 +119,12 @@ public class Temporizador extends HBox implements Initializable {
         tiempo.setStyle(color2);
     }
     
-    
+    /**
+     * Método que le asigna al Temporizador el tiempo que debe calcular para usar.
+     * @param horas - Horas asignadas para el Temporizador.
+     * @param minutos - Minutos asignadas para el Temporizador. 
+     * @param segundos - Segundos asignadas para el Temporizador.
+     */
     public void setTiempo(int horas, int minutos, int segundos){
         
         
@@ -133,9 +161,18 @@ public class Temporizador extends HBox implements Initializable {
         
     }
     
+    /**
+     * Método setter para el valor textual del atributo Medida
+     * @param valor - Valor de texto
+     */
+    
     public void setMedida(String valor){
         this.medida.setText(valor);
     }
+    
+    /**
+     * Método que calcula cuando modificar tanto los segundos, como los minutos como las horas.
+     */
     
     public void countDown(){
         
@@ -171,18 +208,38 @@ public class Temporizador extends HBox implements Initializable {
         
     }
     
+    /**
+     * Método que salta con una alerta estándar para su uso al terminar el timeline.
+     */
+    
     public void alertaEstandar(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(etiqueta.getText() + " ha acabado");
         alert.show();
     }
     
+    /**
+     * Método que retorna la Property OnAction
+     * @return OnAction
+     */
+    
     public final ObjectProperty<EventHandler<ActionEvent>> onActionProperty() {
     return OnAction;
     }
+    
+    /**
+     * Método que asigna el handler al terminar el Timeline.
+     * @param handler - Se le pasa la acción que ejecutará.
+     */
+    
     public final void setOnFinished(EventHandler<ActionEvent> handler) {
         OnAction.set(handler);
     }
+    
+    /**
+     * Método para recuperar el método OnFinished
+     * @return - Retorna OnAction asignado.
+     */
     public final EventHandler<ActionEvent> getOnFinished() {
         return OnAction.get();
     }

@@ -20,7 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 /**
- * FXML Controller class
+ * Contenido de la clase CampoTextoBoton.
  *
  * @author Kristian
  */
@@ -31,6 +31,11 @@ public class CampoTextoBoton extends HBox implements Initializable {
     
     private ObjectProperty<EventHandler<MouseEvent>> OnAction = new SimpleObjectProperty<EventHandler<MouseEvent>>();
 
+    /**
+     * 
+     * Inicializa la clase controladora.
+     */
+    
     public void initialize(URL url, ResourceBundle rb) {
         
         boton.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -41,6 +46,9 @@ public class CampoTextoBoton extends HBox implements Initializable {
             });
     };
     
+    /**
+     * Constructor por defecto.
+     */
     public CampoTextoBoton() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
 "CampoTextoBoton.fxml"));
@@ -55,29 +63,57 @@ public class CampoTextoBoton extends HBox implements Initializable {
         }
     }
 
+    /**
+     * Método getter para el texto del campo de texto.
+     * @return - Retorna el textProperty
+     */
     public String getText() {
         return textProperty().get();
     }
-
+    /**
+     * Método setter para el texto del campo de texto.
+     * @param value - Asigna el valor del campo de texto mediante un String
+     */
     public void setText(String value) {
         textProperty().set(value);
     }
-    
+    /**
+     * Método setter para el texto del botón.
+     * @param value - String con valor textual del botón.
+     */
     public void setButtonText(String value) {
         this.boton.setText(value);
     }
-
+    /**
+     * Método del textproperty
+     * @return - Retorna el textProperty del textField
+     */
     public StringProperty textProperty() {
         return textField.textProperty();
     }
-
+    /**
+     * Método que retorna la Property OnAction
+     * @return OnAction
+     */
     
     public final ObjectProperty<EventHandler<MouseEvent>> onActionProperty() {
         return OnAction;
     }
+    
+    /**
+     * Método que asigna el handler al terminar la acción.
+     * @param handler - Se le pasa la acción que ejecutará.
+     */
+    
     public final void setOnAction(EventHandler<MouseEvent> handler) {
         OnAction.set(handler);
     }
+    
+    /**
+     * Método para recuperar el método OnAction
+     * @return - Retorna OnAction asignado.
+     */
+    
     public final EventHandler<MouseEvent> getOnAction() {
         return OnAction.get();
     }

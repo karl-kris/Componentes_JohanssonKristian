@@ -17,8 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 /**
- *
- * @author Kristian
+ * Contenido de la clase SelectorDeslizamiento.
+ * @author Kristian Johansson Dougal
  */
 public class SelectorDeslizamiento extends AnchorPane {
 
@@ -32,6 +32,9 @@ public class SelectorDeslizamiento extends AnchorPane {
     int selectedIndex;
     private boolean repetitive;
 
+    /**
+     * Constructor por defecto.
+     */
     public SelectorDeslizamiento() {
         FXMLLoader fxmlLoader = new FXMLLoader(
                 getClass().getResource("selector_deslizamiento.fxml"));
@@ -53,28 +56,41 @@ public class SelectorDeslizamiento extends AnchorPane {
             fireEvent(event);
         });
     }
-
+    /**
+     * Método setter para los ítems del selector.
+     * @param items - ArrayList de ítems.
+     */
     public void setItems(ArrayList<String> items) {
         this.items = items;
         selectFirst();
     }
-
+    /**
+     * Método setter para asignar el valor anterior.
+     */
     public void setPrevious() {
         updateItem(selectedIndex - 1);
     }
-
+    /**
+     * Método setter para asignar el valor siguiente.
+     */
     public void setNext() {
         updateItem(selectedIndex + 1);
     }
-
+    /**
+     * Método para asignar el primer valor.
+     */
     public void selectFirst() {
         updateItem(0);
     }
-
+    /**
+     * Método para asignar el último valor.
+     */
     private void selectLast() {
         updateItem(items.size() - 1);
     }
-
+    /**
+     * Método para actualizar el valor.
+     */
     private void updateItem() {
         if (items.isEmpty()) {
             label.setText("Vacio");
@@ -96,24 +112,39 @@ public class SelectorDeslizamiento extends AnchorPane {
             label.setText(items.get(selectedIndex));
         }
     }
-
+    /**
+     * Método para actualizar el valor con parámetro.
+     * @param selectedIndex - Índice especificado. 
+     */
     private void updateItem(int selectedIndex) {
         this.selectedIndex = selectedIndex;
         updateItem();
     }
-
+    /**
+     * Método setter para asignar los ciclos con un booleano.
+     * @param cyclesThrough - Booleano que especifica los ciclos.
+     */
     public void setRepetitive(boolean cyclesThrough) {
         this.repetitive = cyclesThrough;
     }
-
+    /**
+     * Método que retorna la Property OnAction
+     * @return OnAction
+     */
     public final ObjectProperty<EventHandler<ActionEvent>> onActionProperty() {
         return onAction;
     }
-
+    /**
+     * Método que asigna el handler al terminar la acción.
+     * @param value - Se le pasa la acción que ejecutará.
+     */
     public final void setOnAction(EventHandler<ActionEvent> value) {
         onActionProperty().set(value);
     }
-
+    /**
+     * Método para recuperar el método OnAction
+     * @return - Retorna OnAction asignado.
+     */
     public final EventHandler<ActionEvent> getOnAction() {
         return onActionProperty().get();
     }
